@@ -100,9 +100,11 @@ function Export-ScanReportSummary {
                 $match = $summaryReport.Where({ $_.Name -eq $object.'Security Check' -and $_.Source -eq 'MSSQL' })
                 if ( $match ) {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value $match.TFS
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value $match.Notes
                 }
                 else {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value 0
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value ''
                 }
 
                 <# # ADDING THE PROPERTIES BELOW IS SLOWER THAN DEFINING AND SELECTING PROPERTIES
@@ -114,7 +116,7 @@ function Export-ScanReportSummary {
 
             # SET PROPERTY CONVERSION
             $newProps = (
-                'Count', 'TFS', 'Status', 'CVSSv3', 'Risk',
+                'Count', 'TFS', 'Notes', 'Status', 'CVSSv3', 'Risk',
                 @{ Name = 'Source'; Expression = { 'MSSQL' } },
                 @{ Name = 'Name'; Expression = { $_.'Security Check' } },
                 @{ Name = 'CVE'; Expression = { $_.ID } }
@@ -138,15 +140,17 @@ function Export-ScanReportSummary {
                 $match = $summaryReport.Where({ $_.Name -eq $object.Name -and $_.Source -eq 'NessusSystem' })
                 if ( $match ) {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value $match.TFS
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value $match.Notes
                 }
                 else {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value 0
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value ''
                 }
             }
 
             # SET PROPERTY CONVERSION
             $newProps = (
-                'Count', 'TFS', 'Status', 'Name', 'Risk', 'CVE', 'CVSS',
+                'Count', 'TFS', 'Notes', 'Status', 'Name', 'Risk', 'CVE', 'CVSS',
                 @{ Name = 'Source'; Expression = { 'NessusSystem' } },
                 @{ Name = 'CVSSv3'; Expression = { $_.'CVSS v3.0 Base Score' } }
             )
@@ -169,15 +173,17 @@ function Export-ScanReportSummary {
                 $match = $summaryReport.Where({ $_.Name -eq $object.Name -and $_.Source -eq 'NessusWeb' })
                 if ( $match ) {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value $match.TFS
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value $match.Notes
                 }
                 else {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value 0
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value ''
                 }
             }
 
             # SET PROPERTY CONVERSION
             $newProps = (
-                'Count', 'TFS', 'Status', 'Name', 'Risk', 'CVE', 'CVSS',
+                'Count', 'TFS', 'Notes', 'Status', 'Name', 'Risk', 'CVE', 'CVSS',
                 @{ Name = 'Source'; Expression = { 'NessusWeb' } },
                 @{ Name = 'CVSSv3'; Expression = { $_.'CVSS v3.0 Base Score' } }
             )
@@ -213,15 +219,17 @@ function Export-ScanReportSummary {
                 $match = $summaryReport.Where({ $_.Name -eq $object.Name -and $_.Source -eq 'AlertLogic-Web' })
                 if ( $match ) {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value $match.TFS
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value $match.Notes
                 }
                 else {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value 0
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value ''
                 }
             }
 
             # SET PROPERTY CONVERSION
             $newProps = (
-                'Name', 'Count', 'TFS', 'CVSSv3', 'CVSS', 'CVE',
+                'Name', 'Count', 'TFS', 'Notes', 'CVSSv3', 'CVSS', 'CVE',
                 @{ Name = 'Source'; Expression = { 'AlertLogic-Web' } },
                 @{ Name = 'Status'; Expression = { $_.'Active or inactive' } },
                 @{ Name = 'Risk'; Expression = { $_.'Severity' } }
@@ -245,15 +253,17 @@ function Export-ScanReportSummary {
                 $match = $summaryReport.Where({ $_.Name -eq $object.Name -and $_.Source -eq 'Acunetix' })
                 if ( $match ) {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value $match.TFS
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value $match.Notes
                 }
                 else {
                     $object | Add-Member -MemberType NoteProperty -Name 'TFS' -Value 0
+                    $object | Add-Member -MemberType NoteProperty -Name 'Notes' -Value ''
                 }
             }
 
             # SET PROPERTY CONVERSION
             $newProps = (
-                'Name', 'Count', 'TFS',
+                'Name', 'Count', 'TFS', 'Notes',
                 @{ Name = 'Source'; Expression = { 'Acunetix' } },
                 @{ Name = 'Status'; Expression = { $_.'IsFalsePositive' } },
                 @{ Name = 'CVE'; Expression = { $_.'CWEList' } },
