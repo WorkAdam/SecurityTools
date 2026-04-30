@@ -124,8 +124,7 @@ function Export-ScanReportSummary {
         else {
             # GET LAST MONTH'S REPORT IF EXISTS
             $lastMonth = (Get-Date -Date (Get-Date).AddMonths(-1) -UFormat %b).ToUpper()
-            $summaryReport = Import-Excel -Path $DestinationPath -WorksheetName $lastMonth -ErrorAction SilentlyContinue
-            if ($null -eq $summaryReport) { $summaryReport = @() }
+            $summaryReport = @(Import-Excel -Path $DestinationPath -WorksheetName $lastMonth -ErrorAction SilentlyContinue)
         }
     }
 
