@@ -166,7 +166,7 @@ function Export-ScanReportSummary {
             # SET PROPERTY CONVERSION
             $newProps = (
                 'Count', 'TFS', 'Notes', 'Status', 'CVSSv3',
-                @{ Name = 'Risk'; Expression = { & $normalizeRisk $_.Risk } },
+                @{ Name = 'Risk'; Expression = { $_.Risk } },
                 @{ Name = 'Source'; Expression = { 'MSSQL' } },
                 @{ Name = 'Name'; Expression = { $_.'Security Check' } },
                 @{ Name = 'CVE'; Expression = { $_.ID } }
@@ -201,7 +201,7 @@ function Export-ScanReportSummary {
             # SET PROPERTY CONVERSION
             $newProps = (
                 'Count', 'TFS', 'Notes', 'Status', 'Name',
-                @{ Name = 'Risk'; Expression = { & $normalizeRisk $_.Risk } },
+                @{ Name = 'Risk'; Expression = { $_.Risk } },
                 'CVE', 'CVSS',
                 @{ Name = 'Source'; Expression = { 'NessusSystem' } },
                 @{ Name = 'CVSSv3'; Expression = { $_.'CVSS v3.0 Base Score' } }
@@ -236,7 +236,7 @@ function Export-ScanReportSummary {
             # SET PROPERTY CONVERSION
             $newProps = (
                 'Count', 'TFS', 'Notes', 'Status', 'Name',
-                @{ Name = 'Risk'; Expression = { & $normalizeRisk $_.Risk } },
+                @{ Name = 'Risk'; Expression = { $_.Risk } },
                 'CVE', 'CVSS',
                 @{ Name = 'Source'; Expression = { 'NessusWeb' } },
                 @{ Name = 'CVSSv3'; Expression = { $_.'CVSS v3.0 Base Score' } }
@@ -286,7 +286,7 @@ function Export-ScanReportSummary {
                 'Name', 'Count', 'TFS', 'Notes', 'CVSSv3', 'CVSS', 'CVE',
                 @{ Name = 'Source'; Expression = { 'AlertLogic-Web' } },
                 @{ Name = 'Status'; Expression = { $_.'Active or inactive' } },
-                @{ Name = 'Risk'; Expression = { & $normalizeRisk $_.'Severity' } }
+                @{ Name = 'Risk'; Expression = { $_.'Severity' } }
             )
 
             # CHANGE COLUMN NAMES
@@ -329,7 +329,7 @@ function Export-ScanReportSummary {
                             $risk = & $riskFromCvss $_.'CVSS Score'
                         }
                         if ([string]::IsNullOrWhiteSpace($risk)) {
-                            $risk = & $normalizeRisk $_.'Severity'
+                            $risk = $_.'Severity'
                         }
                         $risk
                     }
